@@ -1,0 +1,799 @@
+<title>Jouni Lounasmaa</title>
+<style>
+  :root{
+    --bg:#eef1ee;
+    --surface:#ffffff;
+    --surface-2:#e4e9e5;
+    --ink:#16232a;
+    --ink-soft:#48565a;
+    --ink-faint:#7c8b8a;
+    --harbor:#1c4d59;
+    --harbor-ink:#e9f2f1;
+    --brick:#9a4630;
+    --link:#0b6e86;
+    --border:rgba(22,35,42,0.14);
+    --border-soft:rgba(22,35,42,0.08);
+    --shadow:0 1px 2px rgba(22,35,42,0.06);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#101a1d;
+      --surface:#16232a;
+      --surface-2:#1c2b30;
+      --ink:#eef1ee;
+      --ink-soft:#b7c4c2;
+      --ink-faint:#7f9391;
+      --harbor:#6fb3bf;
+      --harbor-ink:#0d2226;
+      --brick:#d98866;
+      --link:#8fd9e3;
+      --border:rgba(238,241,238,0.16);
+      --border-soft:rgba(238,241,238,0.09);
+      --shadow:0 1px 2px rgba(0,0,0,0.3);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#101a1d;
+    --surface:#16232a;
+    --surface-2:#1c2b30;
+    --ink:#eef1ee;
+    --ink-soft:#b7c4c2;
+    --ink-faint:#7f9391;
+    --harbor:#6fb3bf;
+    --harbor-ink:#0d2226;
+    --brick:#d98866;
+    --link:#8fd9e3;
+    --border:rgba(238,241,238,0.16);
+    --border-soft:rgba(238,241,238,0.09);
+    --shadow:0 1px 2px rgba(0,0,0,0.3);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:840px;
+    margin:0 auto;
+    padding:56px 20px 72px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", Georgia, "Times New Roman", serif;
+    font-weight:600;
+    text-wrap:balance;
+    color:var(--ink);
+    margin:0;
+  }
+  p{margin:0;}
+  a{color:var(--link); font-weight:600; text-decoration-color:currentColor; text-underline-offset:3px;}
+  a:hover{text-decoration-color:currentColor; text-decoration-thickness:2px;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--harbor); outline-offset:3px;}
+
+  .mono{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:12.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+
+  /* ---------- Header / coordinate strip ---------- */
+  header.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:16px;
+    flex-wrap:wrap;
+    padding-bottom:28px;
+    margin-bottom:40px;
+    border-bottom:1px solid var(--border);
+  }
+  .route{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+  }
+  .route b{color:var(--ink); font-weight:600;}
+  .route svg{flex:0 0 auto;}
+  .dates{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:12.5px;
+    color:var(--ink-faint);
+    letter-spacing:0.04em;
+    white-space:nowrap;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:40px;
+    align-items:start;
+    margin-bottom:64px;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 5vw, 3rem);
+    line-height:1.05;
+    margin-bottom:10px;
+  }
+  .role{
+    font-size:1.05rem;
+    color:var(--ink-soft);
+    max-width:46ch;
+    margin-bottom:18px;
+  }
+  .role .fn{color:var(--harbor); font-weight:600;}
+  .thesis{
+    font-size:1.05rem;
+    max-width:56ch;
+    color:var(--ink);
+  }
+  .photo-frame{
+    position:relative;
+    width:168px;
+    flex:0 0 auto;
+  }
+  .photo-frame img{
+    width:168px;
+    height:168px;
+    object-fit:cover;
+    display:block;
+    border-radius:3px;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+  }
+  .tick{
+    position:absolute;
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:10px;
+    color:var(--ink-faint);
+    letter-spacing:0.02em;
+  }
+  .tick.hel{top:-18px; left:-2px;}
+  .tick.date{bottom:-20px; right:-2px;}
+
+  /* ---------- Section scaffolding ---------- */
+  section{margin-bottom:64px;}
+  section > .eyebrow{margin-bottom:10px;}
+  section h2{
+    font-size:1.5rem;
+    margin-bottom:18px;
+  }
+  .lede{
+    font-size:1.02rem;
+    max-width:65ch;
+    color:var(--ink);
+    margin-bottom:22px;
+  }
+  .lede + .lede{margin-top:-8px;}
+
+  /* ---------- About ---------- */
+  .stats{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px 10px;
+    font-size:11.5px;
+    letter-spacing:0.03em;
+    color:var(--ink-soft);
+    padding:14px 0;
+    margin-bottom:22px;
+    border-top:1px solid var(--border-soft);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .stats .dot{color:var(--brick);}
+  .bio p{max-width:66ch; margin-bottom:14px; color:var(--ink);}
+  .bio p:last-child{margin-bottom:0;}
+
+  /* ---------- Banner photo ---------- */
+  .banner-photo{
+    width:100%;
+    margin:22px 0 6px;
+  }
+  .banner-photo img{
+    width:100%;
+    height:auto;
+    max-height:320px;
+    object-fit:cover;
+    display:block;
+    border-radius:3px;
+    border:1px solid var(--border);
+  }
+  .banner-photo figcaption{
+    margin-top:8px;
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:11.5px;
+    letter-spacing:0.02em;
+    color:var(--ink-faint);
+  }
+
+  /* ---------- Photo row ---------- */
+  .photo-row{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    margin:26px 0 6px;
+  }
+  .photo-row figure{
+    margin:0;
+  }
+  .photo-row img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    display:block;
+    border-radius:3px;
+    border:1px solid var(--border);
+  }
+  .photo-row figcaption{
+    margin-top:7px;
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:11px;
+    letter-spacing:0.02em;
+    color:var(--ink-faint);
+    line-height:1.4;
+  }
+  @media (max-width:640px){
+    .photo-row{grid-template-columns:1fr; gap:16px;}
+    .photo-row img{height:auto; max-height:320px;}
+  }
+
+  /* ---------- Institution cards ---------- */
+  .org-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .org-card{
+    background:var(--surface);
+    padding:20px 22px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .org-card h3{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:0.98rem;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .org-role{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:11.5px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    color:var(--harbor);
+  }
+  .org-card p{
+    font-size:0.92rem;
+    color:var(--ink-soft);
+  }
+  @media (max-width:600px){
+    .org-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Objectives ---------- */
+  .objectives{
+    display:flex;
+    flex-direction:column;
+    border-top:1px solid var(--border);
+  }
+  .objective{
+    display:grid;
+    grid-template-columns:44px 1fr;
+    gap:18px;
+    padding:20px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .objective .num{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:0.95rem;
+    color:var(--brick);
+    font-weight:500;
+    padding-top:2px;
+  }
+  .objective h3{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:1rem;
+    font-weight:600;
+    margin-bottom:5px;
+  }
+  .objective p{
+    font-size:0.94rem;
+    color:var(--ink-soft);
+    max-width:58ch;
+  }
+
+  /* ---------- Places list ---------- */
+  .places{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px 28px;
+    margin-top:18px;
+    padding:0;
+    list-style:none;
+  }
+  .places li{
+    font-size:0.94rem;
+    color:var(--ink-soft);
+    padding-left:16px;
+    position:relative;
+  }
+  .places li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0.6em;
+    width:6px;
+    height:1px;
+    background:var(--brick);
+  }
+  .places b{color:var(--ink); font-weight:600;}
+  .places.wide{grid-template-columns:1fr; gap:10px;}
+  @media (max-width:600px){ .places{grid-template-columns:1fr;} }
+
+  /* ---------- Subheads within a section ---------- */
+  .subhead{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:1.02rem;
+    font-weight:600;
+    color:var(--ink);
+    margin:28px 0 4px;
+  }
+
+  /* ---------- Key questions ---------- */
+  .question-list{
+    display:flex;
+    flex-direction:column;
+    margin-top:10px;
+    border-top:1px solid var(--border);
+  }
+  .question-item{
+    display:grid;
+    grid-template-columns:38px 1fr;
+    gap:16px;
+    padding:16px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .question-item .qnum{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:0.85rem;
+    color:var(--harbor);
+    font-weight:500;
+    padding-top:3px;
+  }
+  .question-item p{
+    font-family:"Fraunces", serif;
+    font-style:italic;
+    font-size:1.08rem;
+    line-height:1.5;
+    color:var(--ink);
+    max-width:56ch;
+  }
+
+  /* ---------- Timeline ---------- */
+  .timeline{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    margin-top:8px;
+  }
+  .tl-row{
+    display:grid;
+    grid-template-columns:104px 20px 1fr;
+    gap:0 16px;
+  }
+  .tl-when{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    padding-top:2px;
+    white-space:nowrap;
+  }
+  .tl-marker{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .tl-dot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--harbor);
+    border:2px solid var(--bg);
+    outline:1px solid var(--border);
+    flex:0 0 auto;
+    margin-top:4px;
+  }
+  .tl-row.milestone .tl-dot{background:var(--brick); outline-color:var(--brick);}
+  .tl-line{
+    width:1px;
+    flex:1;
+    background:var(--border);
+    margin-top:2px;
+  }
+  .tl-row:last-child .tl-line{display:none;}
+  .tl-body{padding-bottom:26px;}
+  .tl-body h3{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:0.98rem;
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .tl-body p{font-size:0.92rem; color:var(--ink-soft); max-width:56ch;}
+  @media (max-width:560px){
+    .tl-row{grid-template-columns:76px 18px 1fr;}
+    .tl-when{font-size:11px;}
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--border);
+    padding-top:28px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:20px;
+  }
+  .links{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    font-size:0.94rem;
+  }
+  .links .label{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:11px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:2px;
+  }
+  .sign{
+    font-family:"Fraunces", serif;
+    font-style:italic;
+    font-size:1.05rem;
+    color:var(--ink-soft);
+    max-width:34ch;
+  }
+
+  @media (max-width:640px){
+    .hero{grid-template-columns:1fr; gap:24px;}
+    .photo-frame{order:-1; width:120px;}
+    .photo-frame img{width:120px; height:120px;}
+    header.top{flex-direction:column; align-items:flex-start; gap:8px;}
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="route mono" aria-label="Route from Helsinki to Boston">
+      <span><b>HEL</b> 60.17°N 24.94°E</span>
+      <svg width="34" height="10" viewBox="0 0 34 10" fill="none" aria-hidden="true">
+        <path d="M1 5 Q17 -3 33 5" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2.5 2.5"/>
+        <path d="M29 2 L33 5 L29 8" stroke="var(--ink-faint)" stroke-width="1" fill="none"/>
+      </svg>
+      <span><b>BOS</b> 42.36°N 71.06°W</span>
+    </div>
+    <div class="dates">5 OCT – 31 DEC 2026 · VISITING FULBRIGHT SCHOLAR</div>
+  </header>
+
+  <section class="hero" style="margin-bottom:60px;">
+    <div>
+      <h1>Jouni Lounasmaa</h1>
+      <p class="role">Executive Director, <a href="https://uudenlastensairaalantuki.fi/en/" target="_blank" rel="noopener"><span class="fn">New Children's Hospital Foundation</span></a>, Helsinki — this fall, Visiting Fulbright Scholar at <a href="https://www.childrenshospital.org/" target="_blank" rel="noopener"><span class="fn">Boston Children's Hospital</span></a> and MIT's <a href="https://hoodhub.mit.edu/" target="_blank" rel="noopener">Hood Pediatric Innovation Hub</a>.</p>
+      <p class="thesis">I'm spending autumn 2026 in Boston studying how one of the world's leading pediatric-innovation ecosystems turns research, philanthropy and clinical practice into better care for children — and hoping to help build a lasting collaboration between Boston's innovation ecosystem and Finland's children's-health sector, not just a one-way study visit.</p>
+    </div>
+    <div class="photo-frame">
+      <span class="tick hel">HEL</span>
+      <img src="jouni.jpg" alt="Portrait of Jouni Lounasmaa, smiling, wearing glasses and a cap" />
+      <span class="tick date">FALL '26</span>
+    </div>
+  </section>
+
+  <section class="bio">
+    <p class="eyebrow">About</p>
+    <h2>A bridge between Helsinki and Boston</h2>
+    <p class="lede">I work at the intersection of pediatric healthcare, innovation and philanthropy — leading foundations that fund medical research in Finland and the development of new, effective forms of care at the New Children's Hospital, and teaching the next generation how healthcare actually gets built and funded.</p>
+    <figure class="banner-photo">
+      <img src="hospital.jpg" alt="The New Children's Hospital in Helsinki, with its rainbow-striped glass façade" />
+      <figcaption>The New Children's Hospital, Meilahti, Helsinki — HUS Helsinki University Hospital</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <p class="eyebrow">The Fulbright Project</p>
+    <h2>Fostering Innovations at Children's Hospitals</h2>
+    <p class="lede" style="margin-bottom:6px;"><i>Developing practices of innovation for 21st-century pediatrics.</i></p>
+    <p class="lede">This Fulbright Mid-Career Professional Development project centers on learning from Boston Children's Hospital and Harvard Medical School to advance pediatric innovation and impactful fundraising in Finland — studying US models in healthcare technology, innovation practice and donor engagement, then adapting what transfers into new strategies, ethical governance and international collaboration for Finnish children's hospitals and foundations. An extension into pediatric innovation at MIT's Hood Pediatric Innovation Hub is also confirmed.</p>
+
+    <div class="objectives">
+      <div class="objective">
+        <span class="num">01</span>
+        <div>
+          <h3>Learning cutting-edge pediatric innovation practices</h3>
+          <p>How public-led healthcare systems like Finland's can safely adopt innovation from private startups, and what funding and program models keep it both impactful and safe for children.</p>
+        </div>
+      </div>
+      <div class="objective">
+        <span class="num">02</span>
+        <div>
+          <h3>Good governance &amp; ethical donor relations</h3>
+          <p>Policies for donor relationships that protect scientific independence, equitable access and children's rights, with clear, transparent communication about how gifts are used.</p>
+        </div>
+      </div>
+      <div class="objective">
+        <span class="num">03</span>
+        <div>
+          <h3>Empowering the Finnish foundation sector</h3>
+          <p>Gathering and adapting US practice into models for program design, management and evaluation that other Finnish health foundations can put to use.</p>
+        </div>
+      </div>
+      <div class="objective">
+        <span class="num">04</span>
+        <div>
+          <h3>Cross-cultural learning &amp; knowledge transfer</h3>
+          <p>Building lasting collaboration with US and European partners through workshops, lectures and joint publications, not just a one-way study trip.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Why Boston Children's &amp; Harvard &amp; MIT</p>
+    <h2>Immersed in one ecosystem, on purpose</h2>
+    <p class="lede">Boston Children's Hospital and Harvard Medical School pair deep philanthropic infrastructure with institutional commitment to translating research into scalable, clinically impactful care — exactly the combination Finland's foundation sector is still building. MIT adds a third layer: its Health and Life Sciences Collaborative (MIT HEALS), launched in 2024, pulls engineering, biology and clinical medicine into the same pipeline, with the Hood Pediatric Innovation Hub as its pediatric-specific arm. My host contact at BCH is Shea Asfaw, Executive Director of CEO Strategic Support, under a letter of invitation from CEO Kevin B. Churchwell, MD. My host contact at MIT's Hood Pediatric Innovation Hub is Dr. Joseph J. Frassica, the Hub's Executive Director. On the Harvard side, my current contact is Alessio Morley-Fletcher, MD, MMSc, Co-Chair of Boston Children's Hospital's Effective AI Committee and Lead for Human-Centred AI at the Harvard Health Systems Innovation Lab — a connection still to be formalized into an invitation.</p>
+  </section>
+
+  <section class="bio">
+    <p class="eyebrow">Background</p>
+    <h2>Who am I</h2>
+
+    <div class="stats mono" aria-label="Career facts">
+      <span>20+ YRS ECOSYSTEM LEADERSHIP</span>
+      <span class="dot">·</span>
+      <span>LATEST OF 5 SCIENCE FOUNDATIONS SINCE 2002</span>
+      <span class="dot">·</span>
+      <span>$150M+ PORTFOLIO OVERSEEN</span>
+      <span class="dot">·</span>
+      <span>4 STARTUPS CO-FOUNDED</span>
+    </div>
+
+    <div class="bio">
+      <p>I direct the <b>New Children's Hospital Foundation</b> and lead the <b>Biomedicum Helsinki Foundation</b> and the <b>Finnish Medical Foundation</b> part-time — the latest of five science foundations I've headed since 2002. I teach at <b>Aalto University</b> as an Executive in Residence with the Department of Industrial Engineering and Management, co-teaching the <a href="https://healthtechlinkage.aalto.fi/" target="_blank" rel="noopener">HealthTech Linkage</a> course with Professor <a href="https://www.aalto.fi/en/people/jens-schmidt" target="_blank" rel="noopener">Jens Schmidt</a>, Satu Torto, and Amos Bonsdorff. This September I co-organized Finland's i4KIDS project, hosting this year's European Paediatric Innovation Day in Helsinki, with Helsinki University Hospital.</p>
+      <p>Alongside the foundation world, I've spent over 15 years in the startup ecosystem — co-founding companies including Hookie Technologies and Kyyti Group, and serving as CEO of the Startup Foundation, parent of <a href="https://www.slush.org/" target="_blank" rel="noopener">Slush</a>, Junction and Maria 01, through the pandemic. My background combines an M.Sc. (Eng) from Helsinki University of Technology and KTH Stockholm with an Executive MBA from Henley Business School, the Certified European Financial Analyst (CEFA) qualification, and Stanford Graduate School of Business's Executive Program for Nonprofit Leaders. I currently chair the New Children's Hospital's real-estate corporation and sit on the board of the Erkki Paasikivi Foundation, having previously served on the board of the Association of Finnish Foundations. I also mentor founders as part of the <a href="https://eir-accelerator.com/mentors" target="_blank" rel="noopener">Eir Accelerator</a>, Finland's women's-health startup program, alongside Helsinki Incubators and the Helsinki Female Tech Founder Frontrunners program.</p>
+      <p>Outside work, I'm usually outdoors — hiking, sea kayaking and sailing around the Finnish archipelago — or at the opera, a dance performance, or a gallery. I also keep a garden, and have a long-running interest in Italian language and culture.</p>
+    </div>
+
+    <div class="photo-row">
+      <figure>
+        <img src="startup-event.jpg" alt="The HealthTech Linkage 2026 teaching team: Amos Bonsdorff, Anu Vehkamäki and Jouni Lounasmaa" />
+        <figcaption>HealthTech Linkage teaching team 2026 — Amos Bonsdorff, Anu Vehkamäki &amp; myself</figcaption>
+      </figure>
+      <figure>
+        <img src="ice-trek.jpg" alt="Jouni ice trekking with poles on the frozen Baltic archipelago" />
+        <figcaption>Ice trekking on the frozen archipelago</figcaption>
+      </figure>
+      <figure>
+        <img src="sailing.jpg" alt="Jouni's sailboat Mango anchored off a rocky archipelago island" />
+        <figcaption>Mango, at anchor in the archipelago</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Institutions</p>
+    <h2>Where this work happens</h2>
+    <div class="org-grid">
+      <div class="org-card">
+        <h3><a href="https://uudenlastensairaalantuki.fi/en/" target="_blank" rel="noopener">New Children's Hospital Foundation ↗</a></h3>
+        <span class="org-role">Executive Director</span>
+        <p>Owns and supports Finland's New Children's Hospital, part of HUS Helsinki University Hospital, funding pediatric research, clinical innovation and training. Recent work: co-organizing the first Pediatric Innovation Challenge and European Paediatric Innovation Day with HUS. Currently raising funding for pediatric heart-disease treatment, art-therapy and pediatric robotic surgery projects.</p>
+      </div>
+      <div class="org-card">
+        <h3><a href="https://biomedicum.com/" target="_blank" rel="noopener">Biomedicum Helsinki Foundation ↗</a></h3>
+        <span class="org-role">Executive Director (part-time)</span>
+        <p>Promotes research in clinical medicine and the health sciences, granting funding each year from a roughly $15M portfolio to researchers at the University of Helsinki and Helsinki University Hospital at every career stage. The foundation is named for, and helps coordinate use of, Biomedicum Helsinki itself — a biomedical research and teaching campus in Meilahti (two buildings, opened 2001 and 2008) housing the University of Helsinki's Faculty of Medicine, HUS, the Finnish Institute for Molecular Medicine (FIMM), and several other life-science institutes and companies under one roof.</p>
+      </div>
+      <div class="org-card">
+        <h3><a href="https://www.aalto.fi/en" target="_blank" rel="noopener">Aalto University ↗</a></h3>
+        <span class="org-role">Executive in Residence</span>
+        <p>Formed in 2010 by merging Helsinki University of Technology, the Helsinki School of Economics and the University of Art and Design Helsinki into one university spanning engineering, business, and art and design — a combination, plus a startup culture that hosts <a href="https://www.slush.org/" target="_blank" rel="noopener">Slush</a>, that has earned it a reputation as something like a Nordic MIT. Its <a href="https://healthtechlinkage.aalto.fi/" target="_blank" rel="noopener">HealthTech Linkage</a> course, run jointly with the University of Helsinki, connects Master's and PhD students with how the health sector actually works commercially.</p>
+      </div>
+      <div class="org-card">
+        <h3><a href="https://laaketieteensaatio.fi/en/" target="_blank" rel="noopener">Finnish Medical Foundation ↗</a></h3>
+        <span class="org-role">Executive Director (part-time)</span>
+        <p>Founded in 1960 by the Finnish Medical Society Duodecim, it supports young medical doctoral and postdoctoral researchers at the start of an independent research career — funding time to focus on research, doctoral researchers' research visits to top international universities such as Harvard Medical School, and the founding of new research groups. Since 2016, the foundation has granted roughly $28M toward this work, and grown its assets to about $135M. It's also one of the member foundations of Finland's national <a href="https://postdocpooli.fi/en/" target="_blank" rel="noopener">Post Doc Pool ↗</a>, which co-funds Finnish postdoctoral researchers' 6–24 month research periods abroad.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bio">
+    <p class="eyebrow">Finnish Pediatric Care</p>
+    <h2>From one Helsinki clinic to the New Children's Hospital</h2>
+
+    <div class="stats mono" aria-label="Finnish pediatric care facts">
+      <span>1922 FIRST NEUVOLA CLINIC</span>
+      <span class="dot">·</span>
+      <span>67 → 1.8 INFANT DEATHS PER 1,000 (1930S–2021)</span>
+      <span class="dot">·</span>
+      <span>2018 CHILDREN'S CASTLE → NEW CHILDREN'S HOSPITAL</span>
+    </div>
+
+    <p class="lede">Finland's modern child-health system traces back to one physician: <a href="https://en.wikipedia.org/wiki/Arvo_Ylpp%C3%B6" target="_blank" rel="noopener">Arvo Ylppö</a>, who trained in neonatal medicine in Berlin before returning to Helsinki to run the <a href="https://en.wikipedia.org/wiki/Children%27s_Castle" target="_blank" rel="noopener">Children's Castle (Lastenlinna)</a> children's hospital from 1920 to 1963. In 1922 he opened the country's first <i>neuvola</i> — a free maternity and child-health clinic — in Kallio, a working-class district where child mortality fell from 15% to 3% within three years. A 1944 law made every Finnish municipality responsible for running one; today <a href="https://finland.fi/?p=89539" target="_blank" rel="noopener">99.7% of pregnant women use the service ↗</a>, and it has helped take national infant mortality from roughly 67 per 1,000 live births in the 1930s–40s to about 1.8 in 2021 — among the lowest rates in the world. The Children's Castle itself treated patients for a century before closing in 2018, the same year the New Children's Hospital opened on the Meilahti campus.</p>
+    <p class="lede">That same hospital is where a lot of the current breakthroughs are happening. <a href="https://www.hus.fi/en/newsroom/robotic-surgery-improves-surgery-results-and-helps-patients-recover-faster" target="_blank" rel="noopener">HUS has logged over 10,000 robot-assisted surgeries ↗</a> since introducing its first system in 2009, and extended the program into pediatric surgery and pediatric urology in 2019. The New Children's Hospital Foundation's current priorities — pediatric heart-disease treatment, pediatric robotic surgery and art-therapy — sit inside a hospital that was deliberately designed around a strong digital-health backbone and an art-and-play-based healing environment, rather than retrofitted onto an older building.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">For Hosts &amp; Collaborators</p>
+    <h2>What I bring — and what I'm asking</h2>
+    <p class="lede">A Fulbright fellowship reads as one-way, but Finland and the Nordics carry hard-won knowledge of their own. If you're hosting me this fall, here's what I hope to offer, the conversations I'd like to have, and the questions I'm carrying into every meeting.</p>
+
+    <h3 class="subhead" style="margin-top:8px;">What I bring from Europe</h3>
+    <ul class="places wide">
+      <li><b>Universal pediatric care at scale</b> — how Finland's New Children's Hospital delivers world-class outcomes without a US-style philanthropic endowment</li>
+      <li><b>Nordic foundation governance</b> — transparent, funding program models built over two decades across five Finnish science foundations</li>
+      <li><b>Lean venture-building experience</b> — running <a href="https://www.slush.org/" target="_blank" rel="noopener">Slush</a>'s parent foundation, mentoring founders, and co-founding four startups on blended public and private funding</li>
+      <li><b>Co-creation practice</b> — the stakeholder-engagement method behind Finland's own pediatric-innovation programs and the European Paediatric Innovation Day</li>
+    </ul>
+
+    <h3 class="subhead">Collaboration &amp; conversation</h3>
+    <p class="lede" style="margin-bottom:10px;">Concretely, I'd welcome conversations about:</p>
+    <ul class="places wide">
+      <li><b>Joint pilot projects</b> between Boston- or MIT-based teams and Finland's New Children's Hospital</li>
+      <li><b>Piloting a US digital-health tool or device program</b> at a Nordic site</li>
+      <li><b>Shared or co-funding models</b> between US and Finnish foundations</li>
+      <li><b>A standing exchange</b> between the European Paediatric Innovation Day and its US counterparts</li>
+    </ul>
+
+    <h3 class="subhead">Key questions I'm carrying</h3>
+    <div class="question-list">
+      <div class="question-item">
+        <span class="qnum">Q1</span>
+        <p>What actually counts as innovation here — products, care processes, digital tools, new therapies — and how do you promote open adoption of it across a children's hospital?</p>
+      </div>
+      <div class="question-item">
+        <span class="qnum">Q2</span>
+        <p>What's the rationale for innovation at a children's hospital, and how do you actually measure whether it worked?</p>
+      </div>
+      <div class="question-item">
+        <span class="qnum">Q3</span>
+        <p>How do you pitch a donor on innovation instead of research, and who protects scientific priorities when a bet runs long or fails?</p>
+      </div>
+      <div class="question-item">
+        <span class="qnum">Q4</span>
+        <p>Where do good ideas — from a nurse's or family's suggestion to a clinician-innovator's project — actually get stuck, and who funds and governs the path through?</p>
+      </div>
+      <div class="question-item">
+        <span class="qnum">Q5</span>
+        <p>What would a standing partnership instrument with a foreign children's-health foundation need to look like — and what could a network like <a href="https://www.echohospitals.org/" target="_blank" rel="noopener">ECHO</a>, the European Children's Hospitals Organisation, actually offer Boston back?</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Fellowship Arc</p>
+    <h2>Fall 2026, in brief</h2>
+    <div class="timeline">
+      <div class="tl-row milestone">
+        <div class="tl-when">18 Sep</div>
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h3><a href="https://www.innovation4kids.org/en/pid-2026-helsinki/" target="_blank" rel="noopener">i4KIDS Paediatric Innovation Day, Helsinki ↗</a></h3>
+          <p>Co-organizing the i4KIDS project, hosting this year's European Paediatric Innovation Day, before departure.</p>
+        </div>
+      </div>
+      <div class="tl-row milestone">
+        <div class="tl-when">5 Oct</div>
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h3>Fellowship begins at Boston Children's Hospital</h3>
+          <p>Onboarding and orientation with the Strategic Support team.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-when">Oct–Dec</div>
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h3>On-site immersion</h3>
+          <p>Accelerator visits, job shadowing and interviews with innovation, research and fundraising leads at BCH and Harvard.</p>
+        </div>
+      </div>
+      <div class="tl-row milestone">
+        <div class="tl-when">15–16 Oct</div>
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h3>Impact1 CEO Summit, Stanford Biodesign</h3>
+          <p>Invited gathering of health-innovation leaders in pediatric and maternal health innovation.</p>
+        </div>
+      </div>
+      <div class="tl-row milestone">
+        <div class="tl-when">22–23 Oct</div>
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h3>Stanford Biodesign 25th Anniversary</h3>
+          <p>Global Working Sessions and the Anniversary Gala at Stanford.</p>
+        </div>
+      </div>
+      <div class="tl-row milestone">
+        <div class="tl-when">27 Oct</div>
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h3>Boston Children's AI Symposium</h3>
+          <p>A look at BCH's AI and innovation work, with introductions to the team.</p>
+        </div>
+      </div>
+      <div class="tl-row milestone">
+        <div class="tl-when">29 Oct</div>
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h3>MIT-Hood Pediatric Innovation Summit</h3>
+          <p>Presenting and exploring collaboration with the Hood Hub team.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-when">Nov</div>
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h3>East Coast study trips</h3>
+          <p>CHOP Foundation, Children's National Hospital, Plug and Play, and others.</p>
+        </div>
+      </div>
+      <div class="tl-row milestone">
+        <div class="tl-when">17–20 Nov</div>
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <h3>Fulbright Visiting Scholar Seminar</h3>
+          <p>"Celebrating 250 Years of America: The Declaration of Independence and U.S. Founders" — a US Department of State / IIE seminar to Fulbright scholars from all fields.</p>
+        </div>
+      </div>
+      <div class="tl-row milestone">
+        <div class="tl-when">31 Dec</div>
+        <div class="tl-marker"><div class="tl-dot"></div></div>
+        <div class="tl-body">
+          <h3>Fellowship concludes</h3>
+          <p>Findings synthesized and shared with Finnish hospitals and foundations via workshops, lectures and publications.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="links">
+      <span class="label">Get in touch</span>
+      <a href="mailto:jouni.lounasmaa@gmail.com">jouni.lounasmaa@gmail.com</a>
+      <a href="tel:+19432851324">+1 (943) 285-1324</a>
+      <a href="https://www.linkedin.com/in/jounilounasmaa/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div class="links">
+      <span class="label">Follow the work</span>
+      <a href="https://healthtechlinkage.aalto.fi/" target="_blank" rel="noopener">HealthTech Linkage ↗</a>
+      <a href="https://www.innovation4kids.org/en/pid-2026-helsinki/" target="_blank" rel="noopener">i4KIDS Helsinki 2026 ↗</a>
+      <a href="https://uudenlastensairaalantuki.fi/en/" target="_blank" rel="noopener">New Children's Hospital Foundation ↗</a>
+      <a href="https://eir-accelerator.com/" target="_blank" rel="noopener">Eir Accelerator ↗</a>
+    </div>
+    <p class="sign">Based in Helsinki. Working from Boston, October–December 2026.</p>
+  </footer>
+
+</div>
