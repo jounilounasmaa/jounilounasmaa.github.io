@@ -148,6 +148,7 @@
     position:relative;
     width:168px;
     flex:0 0 auto;
+    margin-top:58px;
   }
   .photo-frame img{
     width:168px;
@@ -174,6 +175,13 @@
   section h2{
     font-size:1.5rem;
     margin-bottom:18px;
+  }
+  .lede, .thesis, .body-text{
+    padding-left:18px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8'%3E%3Cline x1='2' y1='0' x2='2' y2='8' stroke='%237c8b8a' stroke-width='1' stroke-opacity='0.55'/%3E%3Cline x1='6' y1='0' x2='6' y2='8' stroke='%237c8b8a' stroke-width='1' stroke-opacity='0.3'/%3E%3Cline x1='10' y1='0' x2='10' y2='8' stroke='%237c8b8a' stroke-width='0.75' stroke-opacity='0.2'/%3E%3C/svg%3E");
+    background-repeat:repeat-y;
+    background-position:left top;
+    background-size:14px 8px;
   }
   .lede{
     font-size:1.02rem;
@@ -477,7 +485,7 @@
 
   @media (max-width:640px){
     .hero{grid-template-columns:1fr; gap:24px;}
-    .photo-frame{order:-1; width:120px;}
+    .photo-frame{order:-1; width:120px; margin-top:0;}
     .photo-frame img{width:120px; height:120px;}
     header.top{flex-direction:column; align-items:flex-start; gap:8px;}
   }
@@ -581,9 +589,9 @@
     </div>
 
     <div class="bio">
-      <p>I direct the <b>New Children's Hospital Foundation</b> and lead the <b>Biomedicum Helsinki Foundation</b> and the <b>Finnish Medical Foundation</b> part-time — the latest of five science foundations I've headed since 2002. I teach at <b>Aalto University</b> as an Executive in Residence with the Department of Industrial Engineering and Management, co-teaching the <a href="https://healthtechlinkage.aalto.fi/" target="_blank" rel="noopener">HealthTech Linkage</a> course with Professor <a href="https://www.aalto.fi/en/people/jens-schmidt" target="_blank" rel="noopener">Jens Schmidt</a>, Satu Torto, and Amos Bonsdorff. This September I co-organized Finland's i4KIDS project, hosting this year's European Paediatric Innovation Day in Helsinki, with Helsinki University Hospital.</p>
-      <p>Alongside the foundation world, I've spent over 15 years in the startup ecosystem — co-founding companies including Hookie Technologies and Kyyti Group, and serving as CEO of the Startup Foundation, parent of <a href="https://www.slush.org/" target="_blank" rel="noopener">Slush</a>, Junction and Maria 01, through the pandemic. My background combines an M.Sc. (Eng) from Helsinki University of Technology and KTH Stockholm with an Executive MBA from Henley Business School, the Certified European Financial Analyst (CEFA) qualification, and Stanford Graduate School of Business's Executive Program for Nonprofit Leaders. I currently chair the New Children's Hospital's real-estate corporation and sit on the board of the Erkki Paasikivi Foundation, having previously served on the board of the Association of Finnish Foundations. I also mentor founders as part of the <a href="https://eir-accelerator.com/mentors" target="_blank" rel="noopener">Eir Accelerator</a>, Finland's women's-health startup program, alongside Helsinki Incubators and the Helsinki Female Tech Founder Frontrunners program.</p>
-      <p>Outside work, I'm usually outdoors — hiking, sea kayaking and sailing around the Finnish archipelago — or at the opera, a dance performance, or a gallery. I also keep a garden, and have a long-running interest in Italian language and culture.</p>
+      <p class="body-text">I direct the <b>New Children's Hospital Foundation</b> and lead the <b>Biomedicum Helsinki Foundation</b> and the <b>Finnish Medical Foundation</b> part-time — the latest of five science foundations I've headed since 2002. I teach at <b>Aalto University</b> as an Executive in Residence with the Department of Industrial Engineering and Management, co-teaching the <a href="https://healthtechlinkage.aalto.fi/" target="_blank" rel="noopener">HealthTech Linkage</a> course with Professor <a href="https://www.aalto.fi/en/people/jens-schmidt" target="_blank" rel="noopener">Jens Schmidt</a>, Satu Torto, and Amos Bonsdorff. This September I co-organized Finland's i4KIDS project, hosting this year's European Paediatric Innovation Day in Helsinki, with Helsinki University Hospital.</p>
+      <p class="body-text">Alongside the foundation world, I've spent over 15 years in the startup ecosystem — co-founding companies including Hookie Technologies and Kyyti Group, and serving as CEO of the Startup Foundation, parent of <a href="https://www.slush.org/" target="_blank" rel="noopener">Slush</a>, Junction and Maria 01, through the pandemic. My background combines an M.Sc. (Eng) from Helsinki University of Technology and KTH Stockholm with an Executive MBA from Henley Business School, the Certified European Financial Analyst (CEFA) qualification, and Stanford Graduate School of Business's Executive Program for Nonprofit Leaders. I currently chair the New Children's Hospital's real-estate corporation and sit on the board of the Erkki Paasikivi Foundation, having previously served on the board of the Association of Finnish Foundations. I also mentor founders as part of the <a href="https://eir-accelerator.com/mentors" target="_blank" rel="noopener">Eir Accelerator</a>, Finland's women's-health startup program, alongside Helsinki Incubators and the Helsinki Female Tech Founder Frontrunners program.</p>
+      <p class="body-text">Outside work, I'm usually outdoors — hiking, sea kayaking and sailing around the Finnish archipelago — or at the opera, a dance performance, or a gallery. I also keep a garden, and have a long-running interest in Italian language and culture.</p>
     </div>
 
     <div class="photo-row">
