@@ -119,6 +119,27 @@
     white-space:nowrap;
   }
 
+  /* ---------- Page nav ---------- */
+  .pagenav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 22px;
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:11px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:16px 0;
+    margin-bottom:40px;
+    border-top:1px solid var(--border-soft);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .pagenav a{
+    color:var(--harbor);
+    font-weight:600;
+    text-decoration:none;
+  }
+  .pagenav a:hover{text-decoration:underline; text-underline-offset:3px;}
+
   /* ---------- Hero ---------- */
   .hero{
     display:grid;
@@ -520,7 +541,16 @@
     </div>
   </section>
 
-  <section class="bio">
+  <nav class="pagenav" aria-label="Page sections">
+    <a href="#about">About</a>
+    <a href="#project">The Project</a>
+    <a href="#why-boston">Why Boston &amp; MIT</a>
+    <a href="#who-am-i">Who I Am</a>
+    <a href="#hosts">What I'm Asking</a>
+    <a href="#timeline">Timeline</a>
+  </nav>
+
+  <section class="bio" id="about">
     <p class="eyebrow">About</p>
     <h2>A bridge between Helsinki and Boston</h2>
     <p class="lede">I work at the intersection of pediatric healthcare, innovation and philanthropy — leading foundations that fund medical research in Finland and the development of new, effective forms of care at the New Children's Hospital, and teaching the next generation how healthcare actually gets built and funded.</p>
@@ -530,7 +560,7 @@
     </figure>
   </section>
 
-  <section>
+  <section id="project">
     <p class="eyebrow">The Fulbright Project</p>
     <h2>Fostering Innovations at Children's Hospitals</h2>
     <p class="lede" style="margin-bottom:6px;"><i>Developing practices of innovation for 21st-century pediatrics.</i></p>
@@ -568,13 +598,13 @@
     </div>
   </section>
 
-  <section>
+  <section id="why-boston">
     <p class="eyebrow">Why Boston Children's &amp; Harvard &amp; MIT</p>
     <h2>Immersed in one ecosystem, on purpose</h2>
     <p class="lede">Boston Children's Hospital and Harvard Medical School pair deep philanthropic infrastructure with institutional commitment to translating research into scalable, clinically impactful care — exactly the combination Finland's foundation sector is still building. MIT adds a third layer: its Health and Life Sciences Collaborative (MIT HEALS), launched in 2024, pulls engineering, biology and clinical medicine into the same pipeline, with the Hood Pediatric Innovation Hub as its pediatric-specific arm. My host contact at BCH is Shea Asfaw, Executive Director of CEO Strategic Support, under a letter of invitation from CEO Kevin B. Churchwell, MD. My host contact at MIT's Hood Pediatric Innovation Hub is Dr. Joseph J. Frassica, the Hub's Executive Director. On the Harvard side, my current contact is Alessio Morley-Fletcher, MD, MMSc, Co-Chair of Boston Children's Hospital's Effective AI Committee and Lead for Human-Centred AI at the Harvard Health Systems Innovation Lab — a connection still to be formalized into an invitation.</p>
   </section>
 
-  <section class="bio">
+  <section class="bio" id="who-am-i">
     <p class="eyebrow">Background</p>
     <h2>Who am I</h2>
 
@@ -698,7 +728,7 @@
     </ul>
   </section>
 
-  <section>
+  <section id="hosts">
     <p class="eyebrow">For Hosts &amp; Collaborators</p>
     <h2>What I bring — and what I'm asking</h2>
     <p class="lede">A Fulbright fellowship reads as one-way, but Finland and the Nordics carry hard-won knowledge of their own. If you're hosting me this fall, here's what I hope to offer, the conversations I'd like to have, and the questions I'm carrying into every meeting.</p>
@@ -745,7 +775,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="timeline">
     <p class="eyebrow">Fellowship Arc</p>
     <h2>Fall 2026, in brief</h2>
     <div class="timeline">
